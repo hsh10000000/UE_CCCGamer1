@@ -25,7 +25,7 @@ void UReporter::BeginPlay()
 
 	UE_LOG(LogTemp, Log, TEXT("Name: %s , Location: %s"),*oName,*(oLocation.ToString()));
 
-	owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
+	//owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
 }
 
 
