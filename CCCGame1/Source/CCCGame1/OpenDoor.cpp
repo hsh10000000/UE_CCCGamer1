@@ -18,7 +18,7 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-	actor2OpenDoor = GetWorld()->GetFirstPlayerController()->GetPawn();
+	
 	
 	
 }
@@ -29,12 +29,12 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (tvArea == nullptr || actor2OpenDoor == nullptr)
+	if (tvArea == nullptr)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Opendoor tick empty point error!"));
 		return;
 	}
-	if (tvArea->IsOverlappingActor(actor2OpenDoor))
+	if (getWeightInArea()>= weight2Open)
 	{
 		controlDoor(HALF);
 	}
@@ -60,5 +60,20 @@ void UOpenDoor::controlDoor(DOORSTATE state)
 	default:
 		GetOwner()->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 	}
+}
+
+float UOpenDoor::getWeightInArea()
+{
+	//获取与判定区域重合的数组
+	TArray<AActor*> overLappingActors;
+	tvArea->GetOverlappingActors(overLappingActors);
+
+	float totalWeight = 0.0f;
+	for (int i=0;i<overLappingActors.Num();++i)
+	{
+		totalWeight += overLappingActors[i]->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	}
+
+	return totalWeight;
 }
 

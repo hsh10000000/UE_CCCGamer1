@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "Grabber.generated.h"
 
@@ -32,4 +33,28 @@ private:
 	UPROPERTY(EditAnywhere)
 	float reach = 100.0f;
 	
+	//获得射线起点
+	FVector getLineStartPoint();
+
+	//获得射线终点
+	FVector getLineEndPoint();
+
+	//获得射线第一个碰到的物体
+	FHitResult getLineFirstReachObject();
+
+	//输入组件
+	UInputComponent *input = nullptr;
+
+	//物理句柄组件
+	UPhysicsHandleComponent *phyHandle = nullptr;
+	
+	//设置物理句柄组件
+	bool setPhysicsHandleComponent();
+
+	//设置输入组件
+	bool setInputComponent();
+
+	//拿起和放开事件
+	void grab();
+	void release();
 };

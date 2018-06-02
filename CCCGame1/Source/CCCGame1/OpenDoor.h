@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
 #include "Engine/TriggerVolume.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "OpenDoor.generated.h"
 
@@ -38,10 +39,16 @@ public:
 
 	//A thing to open door
 	UPROPERTY(EditAnywhere)
-	AActor *actor2OpenDoor = nullptr;
+	float weight2Open = 25.0f;
 
 
 private:
 	//Control door
 	void controlDoor(DOORSTATE state);
+
+	//获取重量
+	float getWeightInArea();
+
+
+
 };
