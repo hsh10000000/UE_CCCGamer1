@@ -33,7 +33,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	if (phyHandle->GetGrabbedComponent())
 	{
-		phyHandle->SetTargetLocation(getLineEndPoint());
+		phyHandle->SetTargetLocationAndRotation(getLineEndPoint(), FRotator(0.0f,0.0f,0.0f));
 	}
 	
 }

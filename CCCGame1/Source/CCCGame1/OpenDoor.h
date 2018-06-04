@@ -8,7 +8,10 @@
 #include "Engine/TriggerVolume.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
+#include "OutputDeviceDebug.h"
 #include "OpenDoor.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FControlDoor);
 
 enum DOORSTATE {
 	OPEN,
@@ -41,6 +44,14 @@ public:
 	UPROPERTY(EditAnywhere)
 	float weight2Open = 25.0f;
 
+	UFUNCTION(BlueprintCallable, Category = "OpenDoor")
+	void CFunction();
+
+	UPROPERTY(BlueprintAssignable)
+	FControlDoor onOpenDoor;
+
+	UPROPERTY(BlueprintAssignable)
+	FControlDoor onCloseDoor;
 
 private:
 	//Control door
@@ -50,5 +61,5 @@ private:
 	float getWeightInArea();
 
 
-
+	
 };

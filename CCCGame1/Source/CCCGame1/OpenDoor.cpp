@@ -20,7 +20,6 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	
 	
-	
 }
 
 
@@ -36,7 +35,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 	if (getWeightInArea()>= weight2Open)
 	{
-		controlDoor(HALF);
+		controlDoor(OPEN);
 	}
 	else
 	{
@@ -44,18 +43,20 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	}
 }
 
+void UOpenDoor::CFunction()
+{
+	UE_LOG(LogTemp, Warning, TEXT("this is a c++ function."));
+}
+
 void UOpenDoor::controlDoor(DOORSTATE state)
 {
 	switch (state)
 	{
 	case OPEN:
-		GetOwner()->SetActorRotation(FRotator(0.0f, -90.0f, 0.0f));
+		onOpenDoor.Broadcast();
 		break;
 	case CLOSE:
-		GetOwner()->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
-		break;
-	case HALF:
-		GetOwner()->SetActorRotation(FRotator(0.0f, -60.0f, 0.0f));
+		onCloseDoor.Broadcast();
 		break;
 	default:
 		GetOwner()->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
